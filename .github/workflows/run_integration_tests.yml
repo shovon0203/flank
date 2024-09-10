@@ -41,13 +41,18 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v4
-
+      - name: Get PR Number
+        id: pr_number
+        run: |
+          PR_URL="${{ github.event.issue.pull_request.url }}"
+          PR_NUMBER=${PR_URL##*/}
+          echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
       - name: Checkout Pull Request
         if: github.event_name == 'issue_comment'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr checkout ${{ needs.should_run_it.outputs.pr_number }}
+          gh pr checkout $PR_NUMBER
 
       - uses: actions/cache@v3
         with:
