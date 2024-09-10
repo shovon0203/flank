@@ -1,0 +1,13 @@
+name: "Test"
+
+on:
+  issue_comment:
+    types: [created]      # Trigger when a new comment is created on an issue
+  workflow_dispatch:      # Allows manual execution of the workflow if needed
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo comment event
+        run: echo "Issue comment detected"
