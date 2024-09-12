@@ -24,7 +24,7 @@ jobs:
           access_token: '${{ secrets.GITHUB_TOKEN }}'
 
   run-it-full-suite:
-    runs-on: ${{ matrix.os }}
+    runs-on: self-hosted
     strategy:
       matrix:
         os: [ ubuntu-latest ]
